@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Schmidt Coating · Tilbud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/cstudio.css">
+<style>
+  /* Layout: ét A4-proportioneret ark på Sand; pris ved siden af indhold, vilkår, opstart, signatur */
+  body {
+    background: var(--bg-soft);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 48px;
+  }
+  .sheet {
+    max-width: 840px; margin: 0 auto; background: var(--bg);
+    border: 1px solid var(--line); border-radius: 2px;
+    padding: clamp(28px, 6vw, 64px);
+    display: flex; flex-direction: column; gap: 40px;
+  }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .head .meta { display: grid; grid-template-columns: auto auto; gap: 4px 20px; font-size: 13px; }
+  .head .meta span:nth-child(odd) { color: var(--ink-3); }
+  .head .meta span:nth-child(even) { color: var(--ink-1); font-weight: 500; }
+  .title { display: flex; flex-direction: column; gap: 16px; }
+  .title h1 { font-size: clamp(38px, 6vw, 56px); }
+
+  .main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 32px; }
+  @media (max-width: 680px) { .main { grid-template-columns: 1fr; } }
+  .price { background: var(--panel); border: 1px solid var(--line); border-radius: 2px; padding: 24px; display: flex; flex-direction: column; gap: 12px; align-self: start; }
+  .price .n { font-family: var(--f-display); font-weight: 500; font-size: 64px; line-height: 1; color: var(--ink-1); }
+  .price dl { margin: 8px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; font-size: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .price dt { color: var(--ink-3); }
+  .price dd { margin: 0; text-align: right; color: var(--ink-1); }
+  .col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+  .terms { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); border-top: 1px solid var(--line); }
+  .terms div { padding: 18px 16px 0 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .terms b { font-family: var(--f-display); font-weight: 500; font-size: 22px; color: var(--ink-1); }
+  .terms span { font-size: 14px; color: var(--ink-3); }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 24px; }
+  .steps div { border-top: 1px solid var(--terracotta); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .steps .k { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; color: var(--accent); }
+
+  .foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 24px; }
+  .foot .info { font-size: 13px; color: var(--ink-3); display: flex; flex-direction: column; gap: 2px; text-align: right; }
+  @media (max-width: 680px) { .foot .info { text-align: left; } }
+</style>
+<style>html,body{margin:0}img{max-width:100%}*{box-sizing:border-box}</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="head">
+    <div>
+      <img class="logo logo-on-light" src="assets/logo-wordmark-dark.png" alt="C Studio">
+      <img class="logo logo-on-dark" src="assets/logo-wordmark-light.png" alt="C Studio">
+    </div>
+    <div class="meta num">
+      <span>Til</span><span>Thomas Schmidt, Schmidt Coating</span>
+      <span>Fra</span><span>Charlotte Jæger Lydiksen</span>
+      <span>Dato</span><span>9. november 2026</span>
+    </div>
+  </header>
+
+  <section class="title">
+    <p class="eyebrow">Tilbud · LinkedIn · Fase 1</p>
+    <h1>Gør håndværket synligt – <em>på LinkedIn</em></h1>
+    <p class="lead">Fagmaterialet udgives på Schmidt Coatings virksomhedsside, og du deler det på din profil med din egen personlige tekst. To profiler – én sammenhængende fortælling.</p>
+  </section>
+
+  <section class="main">
+    <div class="price">
+      <p class="eyebrow">Fast pris</p>
+      <span class="n num">3.500</span>
+      <span class="muted">kr. pr. måned ekskl. moms</span>
+      <dl>
+        <dt>Binding</dt><dd>Ingen</dd>
+        <dt>Fakturering</dt><dd>Sidste hverdag</dd>
+        <dt>Opstart</dt><dd>Med det samme</dd>
+      </dl>
+    </div>
+    <div class="col">
+      <p class="eyebrow">Det får du hver måned</p>
+      <ul class="list">
+        <li><span class="k num">8–9</span><span>Faglige opslag på virksomhedssiden – to om ugen, sendt til din godkendelse.</span></li>
+        <li><span class="k num">8–9</span><span>Personlige tekster i din stemme, når du deler opslagene på din profil.</span></li>
+        <li><span class="k num">3</span><span>Faste vinkler: før og efter-cases, proces og faglighed, miljø og indeklima.</span></li>
+        <li><span class="k num">1</span><span>Contentplan og udvælgelse af billeder fra opgaverne.</span></li>
+        <li><span class="k num">1</span><span>Rapport over det udførte arbejde.</span></li>
+      </ul>
+      <p class="fine">Ved opstart gennemgår og skærper jeg din profil og virksomhedssiden og laver et årshjul med de vinkler, fortællinger og budskaber, der skal bære Schmidt Coatings synlighed.</p>
+    </div>
+  </section>
+
+  <section class="col">
+    <p class="eyebrow">Vilkår</p>
+    <div class="terms">
+      <div><b>Ingen binding</b><span>Aftalen løber fra måned til måned.</span></div>
+      <div><b>Sidste hverdag</b><span>Der faktureres den sidste hverdag i hver måned.</span></div>
+      <div><b>Opstart nu</b><span>Vi går i gang, så snart du siger ja.</span></div>
+      <div><b>Månedsrapport</b><span>Du får overblik over det udførte hver måned.</span></div>
+    </div>
+  </section>
+
+  <section class="col">
+    <p class="eyebrow">Sådan kommer vi i gang</p>
+    <div class="steps">
+      <div><span class="k">01</span><h3>Du siger ja</h3><p class="muted">Et kort svar på mailen er nok.</p></div>
+      <div><span class="k">02</span><h3>Jeg sender en liste</h3><p class="muted">Over billeder og oplysninger. Du tilføjer mig som administrator på virksomhedssiden – adgang til din egen konto behøver jeg ikke.</p></div>
+      <div><span class="k">03</span><h3>De første opslag</h3><p class="muted">Sendes til din godkendelse og går live på LinkedIn.</p></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="col" style="gap:8px">
+      <img class="signature logo-on-light" src="assets/logo-signature-dark.png" alt="C Studio · Charlotte J. Lydiksen" width="1762" height="505">
+      <img class="signature logo-on-dark" src="assets/logo-signature-light.png" alt="C Studio · Charlotte J. Lydiksen" width="1762" height="505">
+      <p class="fine">Alle priser er ekskl. moms. Potentiale og næste faser fremgår af det medfølgende deck.</p>
+    </div>
+    <div class="info">
+      <span class="sel">kontakt@cstudio.dk</span>
+      <span>C/O Steenbjerg 21, 6070 Christiansfeld</span>
+      <span class="num">CVR 46054326</span>
+    </div>
+  </footer>
+</main>
+</body>
+</html>

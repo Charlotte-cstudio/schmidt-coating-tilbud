@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Schmidt Coating · LinkedIn-deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/cstudio.css">
+<style>
+  /* Layout: seks slides i scroll-snap; Papir og Sand skiftes, Blæk vender prisslidet om */
+  html { scroll-snap-type: y proximity; scroll-behavior: smooth; }
+  .slide {
+    min-height: 100dvh; scroll-snap-align: start; display: flex; align-items: center;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .slide.soft { background: var(--bg-soft); }
+  .slide.inverse {
+    --bg: #1A1814; --ink-1: #F4F1EA; --ink-2: rgba(244,241,234,0.82); --ink-3: rgba(244,241,234,0.60);
+    --line: rgba(244,241,234,0.14); --mark: #C9956B; --panel: rgba(244,241,234,0.05);
+    background: var(--bg); color: var(--ink-2);
+  }
+  .inner { width: 100%; max-width: 1080px; margin: 0 auto; padding-block: 96px; display: flex; flex-direction: column; gap: 40px; }
+  @media (max-width: 680px) { .inner { padding-block: 64px 104px; } }
+  h1 { font-size: clamp(44px, 8vw, 96px); }
+  h2 { font-size: clamp(34px, 5.2vw, 60px); }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+  .grid { display: grid; gap: 24px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); }
+  .grid > * { min-width: 0; }
+  .rule { border-top: 1px solid var(--line); padding-top: 20px; }
+
+  .cover-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; border-top: 1px solid var(--line); padding-top: 24px; }
+  .cover-meta div { display: flex; flex-direction: column; gap: 4px; }
+  .cover-meta small { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+  .cover-meta span { color: var(--ink-1); }
+
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .card.main { border-color: var(--terracotta); }
+
+  .zero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); border-top: 1px solid var(--line-strong); }
+  .zero div { padding: 20px 20px 0 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .zero b { font-family: var(--f-display); font-weight: 500; font-size: 40px; line-height: 1; color: var(--ink-1); }
+  .zero span { font-size: 14px; color: var(--ink-3); }
+
+  .price { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .price .n { font-family: var(--f-display); font-weight: 500; font-size: clamp(72px, 12vw, 136px); line-height: .9; color: var(--ink-1); }
+  .month { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); border-top: 1px solid var(--line); }
+  .month div { padding: 20px 20px 0 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .month b { font-family: var(--f-display); font-weight: 500; font-size: 40px; line-height: 1; color: var(--accent); }
+  .month span { font-size: 14px; color: var(--ink-3); }
+
+  /* Værdi: i dag → efter et år */
+  .compare { display: flex; flex-direction: column; border-top: 1px solid var(--line-strong); }
+  .crow { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .crow > * { min-width: 0; }
+  .chead { padding: 14px 0; }
+  .chead span { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+  .chead span:last-child { color: var(--accent); }
+  .clabel { font-weight: 600; color: var(--ink-1); font-size: 15px; }
+  .cnow { color: var(--ink-3); font-size: 15px; }
+  .cnow b { font-family: var(--f-display); font-weight: 500; font-size: 26px; color: var(--ink-3); margin-right: 4px; }
+  .cthen { color: var(--ink-1); font-size: 15px; padding-left: 16px; border-left: 1px solid var(--terracotta); }
+  .cthen b { font-family: var(--f-display); font-weight: 500; font-size: 26px; color: var(--ink-1); margin-right: 4px; }
+  @media (max-width: 680px) {
+    .crow { grid-template-columns: 1fr; gap: 6px; }
+    .chead { display: none; }
+    .cnow::before { content: "I dag: "; font-weight: 500; }
+    .cthen { margin-top: 4px; }
+  }
+
+  .chain { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 24px; }
+  .chain li { border-top: 1px solid var(--terracotta); padding-top: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .chain .k { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; color: var(--accent); }
+  .chain li:last-child { border-top-width: 2px; }
+
+  .phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
+  .phase { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .phase.now { border-color: var(--terracotta); }
+  .phase .pp { font-family: var(--f-display); font-weight: 500; font-size: 36px; line-height: 1; color: var(--ink-1); }
+  .phase .pp small { display: block; font-family: var(--f-body); font-size: 13px; color: var(--ink-3); margin-top: 6px; }
+  .phase p { font-size: 15px; color: var(--ink-3); }
+
+  /* Annoncering: kanal-tabel */
+  .ads { display: flex; flex-direction: column; border-top: 1px solid var(--line-strong); }
+  .arow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 0.8fr) minmax(0, 1fr); gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; font-size: 15px; }
+  .arow > * { min-width: 0; }
+  .ahead { padding: 14px 0; }
+  .ahead span { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+  .aname { font-weight: 600; color: var(--ink-1); display: flex; flex-direction: column; gap: 2px; }
+  .aname small { font-weight: 400; font-size: 13px; color: var(--accent); }
+  .anum { color: var(--ink-1); white-space: nowrap; }
+  .alab { display: none; }
+  @media (max-width: 760px) {
+    .arow { grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+    .arow > :nth-child(1), .arow > :nth-child(2) { grid-column: 1 / -1; }
+    .ahead { display: none; }
+    .alab { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+    .anum { white-space: normal; }
+  }
+
+  .contact { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+
+  .nav {
+    position: fixed; z-index: 20;
+    right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg); border: 1px solid var(--line-strong); border-radius: 999px;
+    padding: 6px 6px 6px 16px; font-size: 12px; color: var(--ink-3);
+  }
+  .nav button {
+    width: 34px; height: 34px; border-radius: 999px; border: 1px solid var(--line-strong);
+    background: transparent; color: var(--ink-1); cursor: pointer; font: inherit; font-size: 14px;
+    transition: border-color 260ms var(--ease);
+  }
+  .nav button:hover { border-color: var(--terracotta); }
+  .nav button:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; }
+  .inverse .logo-on-light { display: none; }
+  .inverse .logo-on-dark { display: block; }
+</style>
+<style>html,body{margin:0}img{max-width:100%}*{box-sizing:border-box}</style>
+</head>
+<body>
+<section class="slide" id="forside">
+  <div class="inner">
+    <div>
+      <img class="logo logo-on-light" src="assets/logo-wordmark-dark.png" alt="C Studio">
+      <img class="logo logo-on-dark" src="assets/logo-wordmark-light.png" alt="C Studio">
+    </div>
+    <div class="stack">
+      <p class="eyebrow">Tilbud · Schmidt Coating · LinkedIn</p>
+      <h1>Gør håndværket synligt – <em>på LinkedIn</em></h1>
+      <p class="lead">Hvor vi starter, hvad det giver – og hvor det kan føre hen.</p>
+    </div>
+    <div class="cover-meta">
+      <div><small>Til</small><span>Thomas Schmidt</span><span class="muted">Schmidt Coating, Christiansfeld</span></div>
+      <div><small>Fra</small><span>Charlotte Jæger Lydiksen</span><span class="muted">C Studio</span></div>
+      <div><small>Dato</small><span class="num">9. november 2026</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide soft" id="udgangspunkt">
+  <div class="inner">
+    <div class="stack">
+      <p class="eyebrow">01 · Hvor vi starter</p>
+      <h2>To profiler – <em>én fortælling</em></h2>
+      <p class="lead">Bygherrer, arkitekter og driftschefer køber af fagfolk, de kender. Derfor udgives fagmaterialet på virksomhedssiden, og du deler det med din egen tekst.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card main">
+        <span class="tag">Det faglige hjem</span>
+        <h3>Schmidt Coating</h3>
+        <p class="muted">Cases, proces og materialer udgives her. Siden bliver over tid et bibliotek af dokumenteret arbejde.</p>
+      </article>
+      <article class="card main">
+        <span class="tag">Stemmen</span>
+        <h3>Thomas Schmidt</h3>
+        <p class="muted">Du deler hvert opslag med din egen personlige tekst. Dit netværk giver rækkevidde – din stemme giver tillid.</p>
+      </article>
+      <article class="card">
+        <span class="tag">Mulighed</span>
+        <h3>Medarbejderne</h3>
+        <p class="muted">De tre medarbejdere kan dele fra pladsen, hvis det giver mening. Omfanget aftaler vi løbende.</p>
+      </article>
+    </div>
+    <div class="stack">
+      <p class="eyebrow">Nulpunkt · november 2026</p>
+      <div class="zero num">
+        <div><b>844</b><span>følgere på din profil</span></div>
+        <div><b>450</b><span>følgere på virksomhedssiden</span></div>
+        <div><b>0</b><span>opslag på virksomhedssiden</span></div>
+        <div><b>1995</b><span>grundlagt – over 30 års erfaring, der ikke bliver fortalt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide inverse" id="fase-1">
+  <div class="inner">
+    <div class="stack">
+      <p class="eyebrow">02 · Fase 1 · Organisk LinkedIn</p>
+      <div class="price"><span class="n num">3.500</span><span class="muted">kr. pr. måned ekskl. moms<br>ingen binding</span></div>
+    </div>
+    <div class="month num">
+      <div><b>8–9</b><span>faglige opslag på virksomhedssiden</span></div>
+      <div><b>8–9</b><span>personlige tekster, når du deler</span></div>
+      <div><b>1</b><span>contentplan, der følger årshjulet</span></div>
+      <div><b>1</b><span>rapport over det udførte arbejde</span></div>
+    </div>
+    <div class="grid g2">
+      <div class="stack">
+        <h3>Det er inkluderet</h3>
+        <ul class="list">
+          <li><span class="k">Opstart</span><span>Gennemgang og skærpelse af din profil og virksomhedssiden.</span></li>
+          <li><span class="k">Opstart</span><span>Årshjul med de vinkler, fortællinger og budskaber, der skal bære Schmidt Coatings synlighed.</span></li>
+          <li><span class="k">Ugentligt</span><span>To faglige opslag på virksomhedssiden – klar til din godkendelse.</span></li>
+          <li><span class="k">Ugentligt</span><span>En personlig tekst til hvert opslag, du deler på din profil.</span></li>
+          <li><span class="k">Månedligt</span><span>Contentplan, billedudvælgelse og rapport.</span></li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Tre faste vinkler</h3>
+        <ul class="list">
+          <li><span class="k">A</span><span><strong>Før og efter.</strong> Fra slidt beton til færdigt gulv – med areal og driftstid.</span></li>
+          <li><span class="k">B</span><span><strong>Proces og faglighed.</strong> Diamantslibning, fugtmåling, primer og udlægning.</span></li>
+          <li><span class="k">C</span><span><strong>Miljø og indeklima.</strong> Opløsningsmiddelfrie løsninger til moderne erhvervsbyggeri.</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">Fra dig: billeder fra pladsen – mobilbilleder er fine – og en hurtig godkendelse af opslagene.</p>
+  </div>
+</section>
+
+<section class="slide" id="vaerdi">
+  <div class="inner">
+    <div class="stack">
+      <p class="eyebrow">03 · Værdien</p>
+      <h2>Dit håndværk findes allerede – <em>nu skal det ses</em></h2>
+      <p class="lead">Du har over 30 års erfaring og stærke cases. I dag er de næsten usynlige på LinkedIn. Sådan ændrer det sig med Fase 1.</p>
+    </div>
+
+    <div class="compare" role="table" aria-label="I dag og efter et år med Fase 1">
+      <div class="crow chead" role="row">
+        <span role="columnheader"></span>
+        <span role="columnheader">I dag</span>
+        <span role="columnheader">Efter et år med Fase 1</span>
+      </div>
+      <div class="crow" role="row">
+        <span class="clabel" role="cell">Virksomhedssiden</span>
+        <span class="cnow" role="cell"><b class="num">0</b> opslag</span>
+        <span class="cthen" role="cell"><b class="num">ca. 100</b> faglige opslag samlet ét sted</span>
+      </div>
+      <div class="crow" role="row">
+        <span class="clabel" role="cell">Din profil</span>
+        <span class="cnow" role="cell">Cirka ét opslag om måneden – uregelmæssigt</span>
+        <span class="cthen" role="cell"><b class="num">2</b> delinger om ugen med din egen tekst</span>
+      </div>
+      <div class="crow" role="row">
+        <span class="clabel" role="cell">Dine cases</span>
+        <span class="cnow" role="cell">220 farestier på 3 døgn fortælles af leverandøren</span>
+        <span class="cthen" role="cell">Fortalt af dig – med dit navn på resultatet</span>
+      </div>
+      <div class="crow" role="row">
+        <span class="clabel" role="cell">Erfaringen</span>
+        <span class="cnow" role="cell">Grundlagt 1995 – nævnes ingen steder</span>
+        <span class="cthen" role="cell">30 års erfaring som rød tråd i alt indhold</span>
+      </div>
+    </div>
+
+    <div class="stack">
+      <p class="eyebrow">Sådan bliver synlighed til henvendelser</p>
+      <ol class="chain">
+        <li><span class="k">01</span><h3>Faste opslag</h3><p class="muted">Cases, proces og materialer – to gange om ugen.</p></li>
+        <li><span class="k">02</span><h3>Synlighed</h3><p class="muted">Bygherrer, arkitekter og driftschefer ser dit arbejde løbende.</p></li>
+        <li><span class="k">03</span><h3>Tillid</h3><p class="muted">De har set processen og resultaterne, før de ringer.</p></li>
+        <li><span class="k">04</span><h3>Henvendelser</h3><p class="muted">Fra kunder, der allerede har valgt kvalitet.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide soft" id="anbefalinger">
+  <div class="inner">
+    <div class="stack">
+      <p class="eyebrow">04 · Potentiale og anbefalinger</p>
+      <h2>Når du er klar – <em>kan vi bygge videre</em></h2>
+      <p class="lead">Du sætter tempoet. Fase 1 står godt alene. Når du har lyst til mere, ligger mulighederne her – og vi tager dem i den rækkefølge, der giver mening for dig.</p>
+    </div>
+    <div class="phases">
+      <div class="phase now">
+        <span class="tag">Nu</span>
+        <h3>Fase 1 · Organisk LinkedIn</h3>
+        <div class="pp num">3.500<small>kr. pr. måned</small></div>
+        <p>Fagmateriale på virksomhedssiden, delt af dig med egen tekst.</p>
+      </div>
+      <div class="phase">
+        <span class="tag">Fase 2</span>
+        <h3>Social Media Plus</h3>
+        <div class="pp num">4.500<small>kr. pr. måned samlet</small></div>
+        <p>Indholdet tilpasses Facebook og Instagram og rammer lokalt erhverv, landbrug og mindre opgaver.</p>
+      </div>
+      <div class="phase">
+        <span class="tag">Fase 3</span>
+        <h3>Digital totalpakke</h3>
+        <div class="pp num">7.500<small>kr. pr. måned samlet</small></div>
+        <p>Hjemmeside, SEO og GEO, så du bliver fundet lokalt – fx på "epoxygulv Syddanmark" – med prisberegner og anmeldelsesflow.</p>
+      </div>
+      <div class="phase">
+        <span class="tag">Tilvalg</span>
+        <h3>Annoncering</h3>
+        <div class="pp num">fra +1.500<small>kr. pr. måned + annoncebudget</small></div>
+        <p>LinkedIn, Facebook og Instagram eller Google Ads – når du vil have mere fart på.</p>
+      </div>
+    </div>
+    <p class="fine">Alle priser er ekskl. moms.</p>
+  </div>
+</section>
+
+<section class="slide" id="annoncering">
+  <div class="inner">
+    <div class="stack">
+      <p class="eyebrow">05 · Annoncering</p>
+      <h2>Organisk bygger tillid – <em>annoncer giver fart</em></h2>
+      <p class="lead">Annoncer er et valg, du kan tage til, når du er klar. Vi starter roligt med et testbudget og justerer efter, hvad der virker.</p>
+    </div>
+    <div class="ads" role="table" aria-label="Annoncekanaler">
+      <div class="arow ahead" role="row">
+        <span role="columnheader">Kanal</span>
+        <span role="columnheader">Hvem du når</span>
+        <span role="columnheader">Drift</span>
+        <span role="columnheader">Anbefalet startbudget</span>
+      </div>
+      <div class="arow" role="row">
+        <span class="aname" role="cell">LinkedIn<small>Kan tilføjes nu</small></span>
+        <span role="cell">Beslutningstagere – arkitekter, bygherrer, driftschefer og industri.</span>
+        <span class="anum num" role="cell"><span class="alab">Drift</span>+2.500 kr./md.</span>
+        <span class="anum num" role="cell"><span class="alab">Startbudget</span>3.000–5.000 kr./md.</span>
+      </div>
+      <div class="arow" role="row">
+        <span class="aname" role="cell">Facebook og Instagram<small>Sammen med Fase 2</small></span>
+        <span role="cell">Lokalt erhverv, landbrug og mindre opgaver i Syddanmark.</span>
+        <span class="anum num" role="cell"><span class="alab">Drift</span>+1.500 kr./md.</span>
+        <span class="anum num" role="cell"><span class="alab">Startbudget</span>1.500–3.000 kr./md.</span>
+      </div>
+      <div class="arow" role="row">
+        <span class="aname" role="cell">Google Ads<small>Sammen med Fase 3</small></span>
+        <span role="cell">Dem, der aktivt søger – fx "epoxygulv Syddanmark" eller "staldgulv renovering".</span>
+        <span class="anum num" role="cell"><span class="alab">Drift</span>+2.500 kr./md.</span>
+        <span class="anum num" role="cell"><span class="alab">Startbudget</span>2.000–4.000 kr./md.</span>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="stack rule"><h3>Du betaler platformen direkte</h3><p class="muted">Annoncebudgettet går direkte til LinkedIn, Meta eller Google – uden mellemled.</p></div>
+      <div class="stack rule"><h3>Test før skalering</h3><p class="muted">Vi starter i den lave ende og hæver kun budgettet, når resultaterne giver grund til det.</p></div>
+      <div class="stack rule"><h3>Google kræver en god landingsside</h3><p class="muted">Derfor giver Google Ads mest mening sammen med hjemmeside, SEO og GEO i Fase 3.</p></div>
+    </div>
+    <p class="fine">Startbudgetterne er vejledende og tilpasses dine mål. Alle priser er ekskl. moms.</p>
+  </div>
+</section>
+
+<section class="slide soft" id="naeste-skridt">
+  <div class="inner">
+    <div class="stack">
+      <p class="eyebrow">06 · Næste skridt</p>
+      <h2>Lad os lægge <em>første lag</em></h2>
+    </div>
+    <ul class="list">
+      <li><span class="k">01</span><span>Du siger ja – et kort svar på mailen er nok.</span></li>
+      <li><span class="k">02</span><span>Jeg sender en liste over de billeder og oplysninger, jeg skal bruge.</span></li>
+      <li><span class="k">03</span><span>Jeg laver contentplan og årshjul med vinkler, fortællinger og budskaber.</span></li>
+      <li><span class="k">04</span><span>De første opslag sendes til din godkendelse og går live.</span></li>
+    </ul>
+    <div class="stack">
+      <p class="eyebrow">LinkedIn-adgang</p>
+      <div class="grid g2">
+        <div class="stack rule"><h3>Virksomhedssiden</h3><p class="muted">Du tilføjer mig som administrator, så jeg kan udgive de faglige opslag direkte på siden.</p></div>
+        <div class="stack rule"><h3>Din egen profil</h3><p class="muted">Jeg skriver dine tekster og guider dig i, hvad du skal dele og hvornår. Adgang til din konto behøver jeg ikke.</p></div>
+      </div>
+    </div>
+    <div class="stack rule">
+      <img class="signature logo-on-light" src="assets/logo-signature-dark.png" alt="C Studio · Charlotte J. Lydiksen" width="1762" height="505">
+      <img class="signature logo-on-dark" src="assets/logo-signature-light.png" alt="C Studio · Charlotte J. Lydiksen" width="1762" height="505">
+      <div class="contact">
+        <span class="sel" id="mail">kontakt@cstudio.dk</span>
+        <button class="btn" id="copy" type="button">Kopiér mail</button>
+      </div>
+      <p class="fine">Ingen binding · Faktureres den sidste hverdag i måneden · Månedlig rapport over det udførte arbejde</p>
+    </div>
+  </div>
+</section>
+
+<nav class="nav" aria-label="Slides">
+  <span id="count" class="num">1 / 7</span>
+  <button id="prev" type="button" aria-label="Forrige slide">↑</button>
+  <button id="next" type="button" aria-label="Næste slide">↓</button>
+</nav>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var count = document.getElementById('count');
+  var cur = 0;
+  function go(i) { cur = Math.max(0, Math.min(slides.length - 1, i)); slides[cur].scrollIntoView({ block: 'start' }); }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { cur = slides.indexOf(e.target); count.textContent = (cur + 1) + ' / ' + slides.length; } });
+  }, { threshold: 0.55 });
+  slides.forEach(function (s) { io.observe(s); });
+  document.getElementById('prev').onclick = function () { go(cur - 1); };
+  document.getElementById('next').onclick = function () { go(cur + 1); };
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowDown', 'PageDown', 'ArrowRight'].indexOf(e.key) > -1) { e.preventDefault(); go(cur + 1); }
+    if (['ArrowUp', 'PageUp', 'ArrowLeft'].indexOf(e.key) > -1) { e.preventDefault(); go(cur - 1); }
+  });
+  var btn = document.getElementById('copy');
+  btn.onclick = function () {
+    var el = document.getElementById('mail');
+    function sel() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    function done() { btn.textContent = 'Kopieret'; setTimeout(function () { btn.textContent = 'Kopiér mail'; }, 1800); }
+    try { navigator.clipboard.writeText(el.textContent).then(done, sel); } catch (e) { sel(); }
+  };
+})();
+</script>
+</body>
+</html>
