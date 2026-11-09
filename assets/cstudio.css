@@ -1,0 +1,113 @@
+/* C Studio – fælles stylesheet til tilbudsmateriale
+   Seks farver, to skrifter (Playfair Display + Inter), pill-knapper, næsten kvadratiske flader. */
+
+:root {
+  --papir: #F4F1EA;
+  --sand: #E5DDCB;
+  --terracotta: #C9956B;
+  --blaek: #1A1814;
+  --editorial: #6E2C2C;
+  --action: #9B3A2E;
+  --action-hover: #85301F;
+
+  --bg: var(--papir);
+  --bg-soft: var(--sand);
+  --ink-1: #1A1814;
+  --ink-2: rgba(26, 24, 20, 0.82);
+  --ink-3: rgba(26, 24, 20, 0.60);
+  --line: rgba(26, 24, 20, 0.12);
+  --line-strong: rgba(26, 24, 20, 0.20);
+  --accent: var(--terracotta);
+  --mark: var(--editorial);
+  --panel: rgba(26, 24, 20, 0.04);
+
+  --f-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --f-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1814; --bg-soft: #221F1A;
+    --ink-1: #F4F1EA; --ink-2: rgba(244, 241, 234, 0.82); --ink-3: rgba(244, 241, 234, 0.60);
+    --line: rgba(244, 241, 234, 0.12); --line-strong: rgba(244, 241, 234, 0.22);
+    --mark: #C9956B; --panel: rgba(244, 241, 234, 0.05);
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]) .logo-on-light { display: none; }
+  :root:not([data-theme="light"]) .logo-on-dark { display: block; }
+}
+:root[data-theme="dark"] {
+  --bg: #1A1814; --bg-soft: #221F1A;
+  --ink-1: #F4F1EA; --ink-2: rgba(244, 241, 234, 0.82); --ink-3: rgba(244, 241, 234, 0.60);
+  --line: rgba(244, 241, 234, 0.12); --line-strong: rgba(244, 241, 234, 0.22);
+  --mark: #C9956B; --panel: rgba(244, 241, 234, 0.05);
+  color-scheme: dark;
+}
+:root[data-theme="dark"] .logo-on-light { display: none; }
+:root[data-theme="dark"] .logo-on-dark { display: block; }
+
+body {
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+p { margin: 0; max-width: 62ch; }
+h1, h2 {
+  font-family: var(--f-display);
+  font-weight: 500;
+  color: var(--ink-1);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 em, h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+h3 { font-family: var(--f-body); font-size: 17px; font-weight: 600; color: var(--ink-1); margin: 0; }
+strong { color: var(--ink-1); font-weight: 600; }
+
+.eyebrow {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin: 0;
+}
+.muted { color: var(--ink-3); }
+.num { font-variant-numeric: tabular-nums; }
+.lead { font-size: clamp(17px, 1.8vw, 20px); color: var(--ink-2); max-width: 56ch; }
+.fine { font-size: 14px; color: var(--ink-3); }
+
+.logo { height: 26px; width: auto; max-width: 100%; align-self: flex-start; object-fit: contain; }
+/* Signaturlogo: skaleres efter bredde, så den tynde håndskrift står skarpt og aldrig strækkes */
+.signature { width: clamp(190px, 26vw, 240px); height: auto; max-width: 100%; align-self: flex-start; object-fit: contain; }
+.logo-on-dark { display: none; }
+
+.tag {
+  display: inline-flex; align-items: center; align-self: flex-start;
+  border: 1px solid var(--mark); color: var(--mark);
+  border-radius: 999px; padding: 3px 12px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+.btn {
+  font: inherit; font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
+  border: 1px solid var(--action); background: var(--action); color: #F4F1EA;
+  padding: 12px 24px; border-radius: 999px; cursor: pointer;
+  transition: background 260ms var(--ease), border-color 260ms var(--ease);
+}
+.btn:hover { background: var(--action-hover); border-color: var(--action-hover); }
+.btn:focus-visible, a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.list li { padding: 12px 0; border-top: 1px solid var(--line); display: flex; gap: 16px; }
+.list li:first-child { border-top: 0; padding-top: 0; }
+.list .k {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--accent);
+  min-width: 40px; padding-top: 3px; font-variant-numeric: tabular-nums;
+}
+
+.sel { user-select: all; color: var(--ink-1); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
